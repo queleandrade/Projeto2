@@ -17,14 +17,14 @@ public class ScreenShipping extends Screen{
 			
 		int options[] = {1,2,3};
 		
-		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options);
+		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options,telaPrincipal.input);
 			
-		input.nextLine();
+		telaPrincipal.input.nextLine();
 			
 		System.out.println("\n###################################\n");
 			
 		if(option == 1) {
-			if(fretes.size() > 0) {
+			if(telaPrincipal.fretes.size() > 0) {
 				pageFretes = 1;
 				menuListagem(1);
 			}
@@ -54,29 +54,29 @@ public class ScreenShipping extends Screen{
 			
 		int options[] = {1,2,3,4,5,6};
 			
-		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options);
+		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options,telaPrincipal.input);
 			
-		input.nextLine();
+		telaPrincipal.input.nextLine();
 			
 		if(option == 1) {
-			String newCompany = requestString("\nDigite a nova Empresa -> ","Problema com a nova Empresa!");
+			String newCompany = requestString("\nDigite a nova Empresa -> ","Problema com a nova Empresa!",telaPrincipal.input);
 			item.setCompany(newCompany);
 		}
 		else if(option == 2) {
-			String newTermMax = requestString("\nDigite o novo Prazo máximo -> ","Problema com o novo Prazo máximo!");
+			String newTermMax = requestString("\nDigite o novo Prazo máximo -> ","Problema com o novo Prazo máximo!",telaPrincipal.input);
 			item.setTermMax(newTermMax);
 		}
 		else if(option == 3) {
-			double newValueMin = requestDouble("\nDigite o novo Valor mínimo -> ","Problema com o novo Valor mínimo!");
+			double newValueMin = requestDouble("\nDigite o novo Valor mínimo -> ","Problema com o novo Valor mínimo!",telaPrincipal.input);
 			item.setValueMin(newValueMin);
 		}
 		else if(option == 4) {
-			double newCost = requestDouble("\nDigite o novo Custo do frete -> ","Problema com o novo Custo do frete!");
+			double newCost = requestDouble("\nDigite o novo Custo do frete -> ","Problema com o novo Custo do frete!",telaPrincipal.input);
 			item.setCost(newCost);
 		}
 		else if(option == 5) {
 			int pos = findFreteById(item.getCod());
-			fretes.remove(pos);
+			telaPrincipal.fretes.remove(pos);
 			delete = true;
 		}
 		else if(option == 6) goBack = true;
@@ -92,15 +92,15 @@ public class ScreenShipping extends Screen{
 	public void telaNovoFrete() {
 		System.out.println("*** Novo Frete ***\n");
 			
-		String company = requestString("Nome da Empresa -> ", "Problema com o Nome da Empresa!\n");
+		String company = requestString("Nome da Empresa -> ", "Problema com o Nome da Empresa!\n",telaPrincipal.input);
 			
-		String termMax = requestString("Prazo máximo    -> ","Problema com o Prazo máximo!\n");
+		String termMax = requestString("Prazo máximo    -> ","Problema com o Prazo máximo!\n",telaPrincipal.input);
 				
-		double valueMin = requestDouble("Valor mínimo    -> R$","Problema com o Valor mínimo!\n");
+		double valueMin = requestDouble("Valor mínimo    -> R$","Problema com o Valor mínimo!\n",telaPrincipal.input);
 
-		double cost = requestDouble("Custo           -> R$","Problema com o Custo\n");
+		double cost = requestDouble("Custo           -> R$","Problema com o Custo\n",telaPrincipal.input);
 				
-		input.nextLine();
+		telaPrincipal.input.nextLine();
 			
 		Shipping newFrete = new Shipping(company, termMax, valueMin, cost);
 				
@@ -117,15 +117,15 @@ public class ScreenShipping extends Screen{
 			
 		int atualPage = pageFretes;
 			
-		int total = fretes.size();
+		int total = telaPrincipal.fretes.size();
 		
-		int totalPages = (int) Math.ceil((float)total/itensPorPagina);
+		int totalPages = (int) Math.ceil((float)total/telaPrincipal.itensPorPagina);
 			
 		atualPage = page < 1 ? 1 : (page > totalPages ? totalPages : page);
 			
 		pageFretes = atualPage;
 			
-		int limitFor = atualPage == totalPages ? (total - (totalPages - 1)*itensPorPagina) : itensPorPagina;
+		int limitFor = atualPage == totalPages ? (total - (totalPages - 1)*telaPrincipal.itensPorPagina) : telaPrincipal.itensPorPagina;
 			
 		int optionProx = -1;
 			
@@ -139,8 +139,8 @@ public class ScreenShipping extends Screen{
 		System.out.printf("Total de Páginas -> %d\n\n",totalPages);
 			
 		for(contador = 0 ; contador < limitFor ; contador++) {
-			int posicaoItem = contador + ((atualPage - 1)*itensPorPagina);
-			String codigo = fretes.get(posicaoItem).getCod();
+			int posicaoItem = contador + ((atualPage - 1)*telaPrincipal.itensPorPagina);
+			String codigo = telaPrincipal.fretes.get(posicaoItem).getCod();
 			System.out.printf("(%d) %s\n",contador+1,codigo);
 		}
 			
@@ -167,9 +167,9 @@ public class ScreenShipping extends Screen{
 			
 		for(int i = 0; i < contador;i++)options[i] = i + 1;
 			
-		int option = takeIntInPrompt("Digite o indice para detalhes -> ","Opção não existente!\n",options);
+		int option = takeIntInPrompt("Digite o indice para detalhes -> ","Opção não existente!\n",options,telaPrincipal.input);
 			
-		input.nextLine();
+		telaPrincipal.input.nextLine();
 			
 		System.out.println("\n###################################\n");
 			
@@ -177,18 +177,22 @@ public class ScreenShipping extends Screen{
 		else if(option == optionAnt)menuListagem(atualPage - 1);
 		else if(option == optionVolt)menuFretes();
 		else if(option <= limitFor && option >= 1) {
-			int posItem = (option - 1) + ((atualPage - 1)*itensPorPagina);
-			Shipping itemFrete = fretes.get(posItem);
+			int posItem = (option - 1) + ((atualPage - 1)*telaPrincipal.itensPorPagina);
+			Shipping itemFrete = telaPrincipal.fretes.get(posItem);
 			detalharFrete(itemFrete);
 		}
 	}
 	
 	// Método responsável por encontrar um Frete
 	public int findFreteById(String cod) {
-		for(int i = 0; i < fretes.size(); i++) {
-			if(fretes.get(i).getCod() == cod)return i;
+		for(int i = 0; i < telaPrincipal.fretes.size(); i++) {
+			if(telaPrincipal.fretes.get(i).getCod() == cod)return i;
 		}
 		return -1;
 	}
-
+	
+	// Método responsável por adicionar um novo Frete no ArrayList 'fretes'
+	public void addFrete(Shipping item) {
+		telaPrincipal.fretes.add(item);
+	}
 }

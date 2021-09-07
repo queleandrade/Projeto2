@@ -1,14 +1,8 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Screen {
-	protected ArrayList<Announcement> anuncios = new ArrayList<Announcement>();
-	protected ArrayList<Shipping> fretes = new ArrayList<Shipping>();
-	protected Scanner input = new Scanner(System.in);
-	protected int itensPorPagina = 10;
-	
 	// Método responsável por solicitar um inteiro positivo qualquer para o usuário
-	public int requestInt(String question,String msgError) {
+	public int requestInt(String question,String msgError,Scanner input) {
 		System.out.print(question);
 		int value = -1;
 			
@@ -16,19 +10,19 @@ public class Screen {
 			value = input.nextInt();
 			if(value <= 0) {
 				System.out.printf("\nErro -> %s\n",msgError);
-				value = requestInt(question,msgError);
+				value = requestInt(question,msgError,input);
 			}
 		}catch(Exception e) {
 			System.out.printf("\nErro -> %s\n",msgError);
 			input.nextLine();
-			value = requestInt(question,msgError);
+			value = requestInt(question,msgError,input);
 		}
 			
 		return value;
 	}
 		
 	// Método responsável por solicitar um double para o usuário
-	public double requestDouble(String question,String msgError) {
+	public double requestDouble(String question,String msgError,Scanner input) {
 		System.out.print(question);
 		double value = -1;
 			
@@ -36,19 +30,19 @@ public class Screen {
 			value = input.nextDouble();
 			if(value <= 0) {
 				System.out.printf("\nErro -> %s\n",msgError);
-				value = requestDouble(question,msgError);
+				value = requestDouble(question,msgError,input);
 			}
 		}catch(Exception e) {
 			System.out.printf("\nErro -> %s\n",msgError);
 			input.nextLine();
-			value = requestDouble(question,msgError);
+			value = requestDouble(question,msgError,input);
 		}
 			
 		return value;
 	}
 		
 	// Método responsável por solicitar uma String para o usuário
-	public String requestString(String question,String msgError) {
+	public String requestString(String question,String msgError,Scanner input) {
 		System.out.print(question);
 		String value = "";
 			
@@ -56,29 +50,19 @@ public class Screen {
 			value = input.nextLine();
 			if(value == "") {
 				System.out.printf("\nErro -> %s\n",msgError);
-				value = requestString(question,msgError);
+				value = requestString(question,msgError,input);
 			}
 		}catch(Exception e) {
 			System.out.printf("\nErro -> %s\n",msgError);
 			input.nextLine();
-			value = requestString(question,msgError);
+			value = requestString(question,msgError,input);
 		}
 			
 		return value;
 	}
 	
-	// Método responsável por adicionar um novo Anúncio no ArrayList 'anuncios'
-	public void addAnuncio(Announcement item) {
-		anuncios.add(item);
-	}
-
-	// Método responsável por adicionar um novo Frete no ArrayList 'fretes'
-	public void addFrete(Shipping item) {
-		fretes.add(item);
-	}
-		
 	// Método responsável por solicitar um valor inteiro dentre as opções de um menu
-	public int takeIntInPrompt(String question,String msgError,int options[]) {
+	public int takeIntInPrompt(String question,String msgError,int options[],Scanner input) {
 		System.out.print(question);
 		int value = -1;
 			
@@ -88,13 +72,13 @@ public class Screen {
 			for(int i = 0; i < options.length;i++) if(options[i] == value)isValid = true;
 			if(!isValid) {
 				System.out.printf("\nErro -> %s\n",msgError);
-				value = takeIntInPrompt(question,msgError,options);
+				value = takeIntInPrompt(question,msgError,options,input);
 			}
 				
 		}catch(Exception e) {
 			System.out.printf("\nErro -> %s\n",msgError);
 			input.nextLine();
-			value = takeIntInPrompt(question,msgError,options);
+			value = takeIntInPrompt(question,msgError,options,input);
 		}
 			
 		return value;

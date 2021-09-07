@@ -1,8 +1,15 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 // Classe responsável por renderizar todos os menus do projeto
 
 public class ScreenMain extends Screen {
-	ScreenShipping telaFretes = new ScreenShipping(this);
-	ScreenAnnouncement telaAnuncios = new ScreenAnnouncement(this);
+	protected ScreenShipping telaFretes = new ScreenShipping(this);
+	protected ScreenAnnouncement telaAnuncios = new ScreenAnnouncement(this);
+	protected ArrayList<Announcement> anuncios = new ArrayList<Announcement>();
+	protected ArrayList<Shipping> fretes = new ArrayList<Shipping>();
+	protected Scanner input = new Scanner(System.in);
+	protected int itensPorPagina = 10;
 	
 	// Método responsável por mostrar na tela as opções do menu Principal
 	public void menuPrincipal(){
@@ -13,7 +20,7 @@ public class ScreenMain extends Screen {
 		
 		int options[] = {1,2,3};
 		
-		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options);
+		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options,input);
 		
 		input.nextLine();
 		
