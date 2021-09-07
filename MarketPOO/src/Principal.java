@@ -3,7 +3,7 @@
 public class Principal {
 	public static void main(String[] args) {
 		TesteDeSistema teste = new TesteDeSistema();
-		Screen tela = new Screen();
+		ScreenMain tela = new ScreenMain();
 
 		System.out.println("-> Início dos Testes\n");
 		
