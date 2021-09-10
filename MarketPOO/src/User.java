@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //classe do usuário que contém seus atributos como nome, sobrenome, cpf, e-mail, cidade, senha e o tipo de usuário.
 
 public class User {
@@ -8,6 +10,8 @@ public class User {
 	private String city;
 	private String password;
 	private String type;
+	private ArrayList<Shopping> myShopping;
+	private ArrayList<Shopping> mySales;
 	
    //construtor
 	public User(String name, String surname, String cpf, String email, String city, String password, String type) {

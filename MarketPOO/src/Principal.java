@@ -5,13 +5,13 @@ public class Principal {
 		TesteDeSistema teste = new TesteDeSistema();
 		ScreenMain tela = new ScreenMain();
 
-		System.out.println("-> Início dos Testes\n");
+		//System.out.println("-> Início dos Testes\n");
 		
-		teste.testeNovoAnuncio(tela);
-		teste.testeNovoFrete(tela);
+		//teste.testeNovoAnuncio(tela);
+		//teste.testeNovoFrete(tela);
 		
-		System.out.println("Fim dos Testes");
-		System.out.println("\n###################################\n");
+		//System.out.println("Fim dos Testes");
+		//System.out.println("\n###################################\n");
 		
 		tela.telaFretes.addFrete(new Shipping("Correios","10 dias",250,10));
 		tela.telaFretes.addFrete(new Shipping("Mercado livre","5 dias",400,40));
