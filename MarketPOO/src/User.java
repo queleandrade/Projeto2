@@ -15,7 +15,6 @@ public class User {
 	
    //construtor
 	public User(String name, String surname, String cpf, String email, String city, String password, String type) {
-		super();
 		this.name = name;
 		this.surname = surname;
 		this.cpf = cpf;
