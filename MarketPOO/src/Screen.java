@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Screen {
+	
 	// Método responsável por solicitar um inteiro positivo qualquer para o usuário
 	public int requestInt(String question,String msgError,Scanner input) {
 		System.out.print(question);

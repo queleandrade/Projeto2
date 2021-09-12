@@ -3,8 +3,8 @@
 public class AnnouncementMagazineSubscription extends Announcement{
 	private String magazineName;
 
-	public AnnouncementMagazineSubscription(String title, double value, String magazineName) {
-		super(title, value);
+	public AnnouncementMagazineSubscription(String title, double value, User advertiser, String magazineName) {
+		super(title, value, advertiser);
 		this.magazineName = magazineName;
 	}
 

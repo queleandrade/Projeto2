@@ -3,8 +3,8 @@
 public class AnnouncementBookCollection extends Announcement{
 	private String bookCollectionName;
 
-	public AnnouncementBookCollection(String title, double value, String bookCollectionName) {
-		super(title, value);
+	public AnnouncementBookCollection(String title, double value, User advertiser, String bookCollectionName) {
+		super(title, value, advertiser);
 		this.bookCollectionName = bookCollectionName;
 	}
 

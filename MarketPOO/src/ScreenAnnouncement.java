@@ -47,21 +47,21 @@ public class ScreenAnnouncement extends Screen{
 		}
 
 		if(atualPage == totalPages && totalPages > 1) {
-			System.out.printf("(%d) Anterior \n",++contador);
+			System.out.printf("(%d) %sAnterior \n",++contador,contador > 9 ? "" : " ");
 			optionAnt = contador;
 		}
 		else if (atualPage < totalPages && atualPage == 1) {
-			System.out.printf("(%d) Próxima \n",++contador);
+			System.out.printf("(%d) %sPróxima \n",++contador,contador > 9 ? "" : " ");
 			optionProx = contador;
 		}
 		else if (atualPage < totalPages && atualPage > 1) {
-			System.out.printf("(%d) Anterior \n",++contador);
+			System.out.printf("(%d) %sAnterior \n",++contador,contador > 9 ? "" : " ");
 			optionAnt = contador;
-			System.out.printf("(%d) Próxima \n",++contador);
+			System.out.printf("(%d) %sPróxima \n",++contador,contador > 9 ? "" : " ");
 			optionProx = contador;
 		}
 
-		System.out.printf("(%d) Voltar para Menu Principal\n\n",++contador);
+		System.out.printf("(%d) %sVoltar para Menu Principal\n\n",++contador,contador > 9 ? "" : " ");
 
 		optionVolt = contador;
 
@@ -107,33 +107,4 @@ public class ScreenAnnouncement extends Screen{
 		return -1;
 	}
 
-	// Método responsável por solicitar uma Data para o usuário
-	public Date solicitarDataPublicacao(String type,boolean isNew) {
-		Date newDate;
-		String questionDay = String.format("\nDigite o%s dia da Publicação %s -> ",isNew ? " novo" : "", type == "livro" ? "do Livro" : "da Revista");
-		String questionMonth = String.format("\nDigite o%s mês da Publicação %s -> ",isNew ? " novo" : "", type == "livro" ? "do Livro" : "da Revista");
-		String questionYear = String.format("\nDigite o%s ano da Publicação %s -> ",isNew ? " novo" : "", type == "livro" ? "do Livro" : "da Revista");
-		String msgDay = String.format("Problema com o%s dia da Publicação %s!",isNew ? " novo" : "", type == "livro" ? "do Livro" : "da Revista");
-		String msgMonth = String.format("Problema com o%s mês da Publicação %s!",isNew ? " novo" : "", type == "livro" ? "do Livro" : "da Revista");
-		String msgYear = String.format("Problema com o%s ano da Publicação %s!",isNew ? " novo" : "", type == "livro" ? "do Livro" : "da Revista");
-
-		int newDay = requestInt(questionDay,msgDay,telaPrincipal.input);
-		int newMonth = requestInt(questionMonth,msgMonth,telaPrincipal.input);
-		int newYear = requestInt(questionYear,msgYear,telaPrincipal.input);
-
-		try {
-			newDate = new Date(newYear,newMonth,newDay);
-		}catch(Exception e) {
-			System.out.println("\nErro -> Data inválida!");
-			newDate = solicitarDataPublicacao(type,isNew);
-		}
-
-		return newDate;
-	}
-
-	// Método responsável por adicionar um novo Anúncio no ArrayList 'anuncios'
-	public void addAnuncio(Announcement item) {
-		telaPrincipal.anuncios.add(item);
-	}
-		
 }

@@ -1,13 +1,15 @@
 // Classe de Anúncio de Livro
 
 public class AnnouncementBook extends Announcement{
+	
+
 	private String bookName;
 	private String bookAuthor;
 	private String bookPublishingCompany;
 	private Date bookPublicationDate;
 	
-	public AnnouncementBook(String title, double value, String bookName, String bookAuthor, String bookPublishingCompany, Date bookPublicationDate) {
-		super(title, value);
+	public AnnouncementBook(String title, double value, User advertiser, String bookName, String bookAuthor, String bookPublishingCompany, Date bookPublicationDate) {
+		super(title, value, advertiser);
 		this.bookName = bookName;
 		this.bookAuthor = bookAuthor;
 		this.bookPublishingCompany = bookPublishingCompany;

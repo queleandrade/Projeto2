@@ -8,8 +8,9 @@ public class TesteDeSistema {
 		String title = "Anúncio de Teste";
 		double value = 75.30;
 		String bookCollectionName = "Coleção de Teste";
-		AnnouncementBookCollection anuncioTeste = new AnnouncementBookCollection(title, value, bookCollectionName);
-		tela.telaAnuncios.addAnuncio(anuncioTeste);
+		User usuarioAdm = new User("Mateus","Brasil","07893080531","teu@gmail.com","Amargosa","123456","Admnistrador");
+		AnnouncementBookCollection anuncioTeste = new AnnouncementBookCollection(title, value,usuarioAdm, bookCollectionName);
+		tela.telaCliente.addAnuncio(anuncioTeste,usuarioAdm);
 		System.out.println(anuncioTeste);
 		System.out.println("Fim -> Anúncio criado com sucesso\n");
 		System.out.println("---------------------------------------\n");

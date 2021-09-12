@@ -5,8 +5,8 @@ public class AnnouncementMagazine extends Announcement{
 	private String magazineTitle;
 	private Date magazinePublicationDate;
 	
-	public AnnouncementMagazine(String title, double value, String magazineName, String magazineTitle, Date magazinePublicationDate) {
-		super(title, value);
+	public AnnouncementMagazine(String title, double value, User advertiser, String magazineName, String magazineTitle, Date magazinePublicationDate) {
+		super(title, value, advertiser);
 		this.magazineName = magazineName;
 		this.magazineTitle = magazineTitle;
 		this.magazinePublicationDate = magazinePublicationDate;
