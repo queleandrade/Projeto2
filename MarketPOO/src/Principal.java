@@ -5,7 +5,7 @@ public class Principal {
 		TesteDeSistema teste = new TesteDeSistema();
 		ScreenMain tela = new ScreenMain();
 		User usuarioAdm = new User("Mateus","Brasil","07893080531","teu@gmail.com","Amargosa","123456","Admnistrador");
-		
+		User usuarioComum = new User("Lucas","Alencar","07893080531","lucas@gmail.com","Amargosa","123456","Comum");
 		//System.out.println("-> Início dos Testes\n");
 
 		//teste.testeNovoAnuncio(tela);
@@ -13,7 +13,11 @@ public class Principal {
 
 		//System.out.println("Fim dos Testes");
 		//System.out.println("\n###################################\n");
-
+		
+		tela.usuarios.add(usuarioAdm);
+		tela.usuarios.add(usuarioComum);
+		tela.usuarioAtual = usuarioAdm;
+		
 		tela.telaFretes.addFrete(new Shipping("Correios","10 dias",250,10));
 		tela.telaFretes.addFrete(new Shipping("Mercado livre","5 dias",400,40));
 		tela.telaFretes.addFrete(new Shipping("Sedex","2 dias",500,60));

@@ -8,6 +8,14 @@ public class Announcement {
 	private double value;
 	private User advertiser;
 
+	public User getAdvertiser() {
+		return advertiser;
+	}
+
+	public void setAdvertiser(User advertiser) {
+		this.advertiser = advertiser;
+	}
+
 	public Announcement(String title, double value, User advertiser) {
 		this.cod = GenerateId();
 		this.title = title;

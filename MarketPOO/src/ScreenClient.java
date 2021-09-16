@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class ScreenClient extends Screen{
 	ScreenMain telaPrincipal;
+	private ScreenShopping telaCompras = new ScreenShopping(this);
 	private int pageMeusAnuncios;
 
 	public ScreenClient(ScreenMain telaPrincipal) {
@@ -26,8 +27,9 @@ public class ScreenClient extends Screen{
 		telaPrincipal.input.nextLine();
 
 		System.out.println("\n###################################\n");
-
-		if(option == 2)telaNovoAnuncio();
+		
+		if(option == 1)telaCompras.telaComprar(null,null,0);
+		else if(option == 2)telaNovoAnuncio();
 		else if(option == 3) {
 			if(telaPrincipal.usuarioAtual.getMyAnnouncement().size() == 0) {
 				System.out.println("Info -> Você não possui nenhum anúncio cadastrado!\n");
@@ -35,6 +37,22 @@ public class ScreenClient extends Screen{
 				telaCliente();
 			}
 			else menuListagem(1);
+		}
+		else if(option == 4) {
+			if(telaPrincipal.usuarioAtual.getMyShopping().size() == 0) {
+				System.out.println("Info -> Você não possui nenhuma compra!\n");
+				System.out.println("###################################\n");
+				telaCliente();
+			}
+			telaCompras.menuListagem(1, "compras");
+		}
+		else if(option == 5) {
+			if(telaPrincipal.usuarioAtual.getMySales().size() == 0) {
+				System.out.println("Info -> Você não possui nenhuma venda!\n");
+				System.out.println("###################################\n");
+				telaCliente();
+			}
+			telaCompras.menuListagem(1, "vendas");
 		}
 		else if(option == 6)telaPrincipal.menuPrincipal();
 	}
@@ -213,9 +231,10 @@ public class ScreenClient extends Screen{
 		int optionVolt = -1;
 
 		System.out.println("*** Lista de Anúncios ***\n");
-		System.out.printf("Página atual     -> %d\n",atualPage);
-		System.out.printf("Total de Páginas -> %d\n\n",totalPages);
-
+		System.out.printf("Página atual      -> %d\n",atualPage);
+		System.out.printf("Total de Páginas  -> %d\n",totalPages);
+		System.out.printf("Total de Anúncios -> %d\n\n",total);
+		
 		for(contador = 0 ; contador < limitFor ; contador++) {
 			int posicaoItem = contador + ((atualPage - 1)*telaPrincipal.itensPorPagina);
 			Announcement anuncio = telaPrincipal.usuarioAtual.getMyAnnouncement().get(posicaoItem);
@@ -243,7 +262,7 @@ public class ScreenClient extends Screen{
 			optionProx = contador;
 		}
 
-		System.out.printf("(%d) %sVoltar para Menu Principal\n\n",++contador,contador > 9 ? "" : " ");
+		System.out.printf("(%d) %sVoltar para Área do Cliente\n\n",++contador,contador > 9 ? "" : " ");
 
 		optionVolt = contador;
 
@@ -259,7 +278,7 @@ public class ScreenClient extends Screen{
 
 		if(option == optionProx)menuListagem(atualPage + 1);
 		else if(option == optionAnt)menuListagem(atualPage - 1);
-		else if(option == optionVolt)telaPrincipal.menuPrincipal();
+		else if(option == optionVolt)telaCliente();
 		else if(option <= limitFor && option >= 1) {
 			int posItem = (option - 1) + ((atualPage - 1)*telaPrincipal.itensPorPagina);
 			Announcement itemAnuncio = telaPrincipal.usuarioAtual.getMyAnnouncement().get(posItem);
@@ -478,7 +497,7 @@ public class ScreenClient extends Screen{
 	// Método responsável por encontrar um Anúncio
 	public int findAnuncioById(String cod,ArrayList<Announcement> anuncios) {
 		for(int i = 0; i < anuncios.size(); i++) {
-			if(anuncios.get(i).getCod() == cod)return i;
+			if(anuncios.get(i).getCod().compareTo(cod) == 0)return i;
 		}
 		return -1;
 	}

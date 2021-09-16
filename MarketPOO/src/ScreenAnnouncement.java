@@ -31,9 +31,10 @@ public class ScreenAnnouncement extends Screen{
 		int optionVolt = -1;
 
 		System.out.println("*** Lista de Anúncios ***\n");
-		System.out.printf("Página atual     -> %d\n",atualPage);
-		System.out.printf("Total de Páginas -> %d\n\n",totalPages);
-
+		System.out.printf("Página atual      -> %d\n",atualPage);
+		System.out.printf("Total de Páginas  -> %d\n",totalPages);
+		System.out.printf("Total de Anúncios -> %d\n\n",total);
+		
 		for(contador = 0 ; contador < limitFor ; contador++) {
 			int posicaoItem = contador + ((atualPage - 1)*telaPrincipal.itensPorPagina);
 			Announcement anuncio = telaPrincipal.anuncios.get(posicaoItem);
@@ -97,14 +98,6 @@ public class ScreenAnnouncement extends Screen{
 		System.out.println("\n###################################\n");
 
 		menuListagem(pageAnuncios);
-	}
-
-	// Método responsável por encontrar um Anúncio
-	public int findAnuncioById(String cod) {
-		for(int i = 0; i < telaPrincipal.anuncios.size(); i++) {
-			if(telaPrincipal.anuncios.get(i).getCod() == cod)return i;
-		}
-		return -1;
 	}
 
 }

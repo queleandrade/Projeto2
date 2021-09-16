@@ -4,17 +4,17 @@ import java.util.Scanner;
 // Classe responsável por renderizar todos os menus do projeto
 
 public class ScreenMain extends Screen {
-	
+
 	protected ScreenShipping telaFretes = new ScreenShipping(this);
 	protected ScreenAnnouncement telaAnuncios = new ScreenAnnouncement(this);
 	protected ScreenAdministrator telaAdm = new ScreenAdministrator(this);
 	protected ScreenClient telaCliente = new ScreenClient(this);
-	
+
 	protected ArrayList<Announcement> anuncios = new ArrayList<Announcement>();
 	protected ArrayList<Shipping> fretes = new ArrayList<Shipping>();
 	protected ArrayList<User> usuarios = new ArrayList<User>();
-	protected ArrayList<Shopping> sales = new ArrayList<Shopping>();
-	
+	protected ArrayList<Shopping> vendas = new ArrayList<Shopping>();
+
 	protected Scanner input = new Scanner(System.in);
 	protected int itensPorPagina = 10;
 	protected User usuarioAtual;
@@ -26,18 +26,17 @@ public class ScreenMain extends Screen {
 		int optionAreaAdm = -1;
 		int optionAreaCliente = -1;
 		int optionSair = -1;
-		
+
 		int options[];
-		User firstUser = new User("Mateus", "Brasil", "07893080531", "teu@gmail.com", "Amargosa", "123456", "Administrador");
-		usuarios.add(firstUser);
+
 		System.out.println("*** Menu Principal ***\n");
-		
+
 		System.out.println("Usuário        -> " + (usuarioAtual == null ? "NENHUM" : usuarioAtual.getName()));
 		System.out.println("Tipo de acesso -> " + (usuarioAtual == null ? "NÃO LOGADO\n" : usuarioAtual.getType() + "\n"));
-		
+
 		System.out.println("(1) Anúncios");
 		System.out.println("(2) Fretes");
-		
+
 		if(usuarioAtual == null) {
 			System.out.println("(3) Entrar");
 			System.out.println("(4) Cadastrar-se");
@@ -45,8 +44,9 @@ public class ScreenMain extends Screen {
 			optionEntrar = 3;
 			optionCadastrar = 4;
 			options = new int[]{1,2,3,4,5};
+
 		}
-		else if(usuarioAtual.getType() == "Administrador") {
+		else if(usuarioAtual.getType().compareTo("Admnistrador") == 0) {
 			System.out.println("(3) Área do ADM");
 			System.out.println("(4) Área do Cliente");
 			System.out.println("(5) Sair");
@@ -64,15 +64,29 @@ public class ScreenMain extends Screen {
 			optionSair = 4;
 			options = new int[]{1,2,3,4,5};
 		}
-		
+
 		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options,input);
 
 		input.nextLine();
 
 		System.out.println("\n###################################\n");
 
-		if(option == 1) telaAnuncios.menuListagem(1);
-		else if(option == 2) telaFretes.menuListagem(1);
+		if(option == 1) {
+			if(anuncios.size() == 0) {
+				System.out.println("Info -> Nenhum anúncio cadastrado\n");
+				System.out.println("###################################\n");
+				menuPrincipal();
+			}
+			else telaAnuncios.menuListagem(1);
+		}
+		else if(option == 2) {
+			if(fretes.size() == 0) {
+				System.out.println("Info -> Nenhum frete cadastrado\n");
+				System.out.println("###################################\n");
+				menuPrincipal();
+			}
+			else telaFretes.menuListagem(1);
+		}
 		else if(option == optionCadastrar) cadastrar();
 		else if(option == optionEntrar)logar();
 		else if(option == optionAreaAdm)telaAdm.telaAdm();
@@ -81,9 +95,9 @@ public class ScreenMain extends Screen {
 			usuarioAtual = null;
 			menuPrincipal();
 		}
-		
+
 	}
-	
+
 	public void logar() {
 		System.out.println("*** Login ***\n");
 		String email = requestString("Digite seu email -> ", "Erro no seu email!\n", input);
@@ -114,6 +128,21 @@ public class ScreenMain extends Screen {
 		usuarios.add(newUser);
 		System.out.println("\n###################################\n");
 		menuPrincipal();
+	}
+
+	// Método responsável por encontrar um Anúncio
+	public int findAnuncioById(String cod) {
+		for(int i = 0; i < anuncios.size(); i++) {
+			if(anuncios.get(i).getCod().compareTo(cod) == 0)return i;
+		}
+		return -1;
+	}
+	
+	public int findFreteById(String cod) {
+		for(int i = 0; i < fretes.size(); i++) {
+			if(fretes.get(i).getCod().compareTo(cod) == 0)return i;
+		}
+		return -1;
 	}
 
 }
