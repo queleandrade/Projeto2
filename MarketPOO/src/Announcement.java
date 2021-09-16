@@ -47,6 +47,28 @@ public class Announcement {
 		this.value = value;
 	}
 
+	// Método responsável por formatar os atributos 'valor' e 'quilometragem'
+	public String mascara(String string,String tipo) {
+
+		String valorDecimal = tipo == "dinheiro" ? string.split(",")[1] : "";
+		char[] valorInteiro = string.split(",")[0].toCharArray();
+		int contador = 1;
+		String novoValorInteiro = "";
+
+		for( int i = valorInteiro.length - 1 ; i >= 0 ; i-- ) {
+			if( ( contador % 4 ) == 0 ) novoValorInteiro += "." + valorInteiro[i];
+			else novoValorInteiro += valorInteiro[i];
+			contador++;
+		}
+
+		string = "";
+
+		for( int i = novoValorInteiro.toCharArray().length - 1 ; i >= 0 ; i-- )string += novoValorInteiro.toCharArray()[i];
+
+		return tipo == "dinheiro" ? string += "," + valorDecimal : string;
+	}
+
+
 	public String GenerateId() {
 		String cod = "";
 		Random random = new Random();
@@ -60,7 +82,7 @@ public class Announcement {
 	}
 
 	public String toString() {
-		return String.format("Título do Anúncio -> %s \nPreço             -> R$ %.2f \nCódigo            -> %s \nAnunciante        -> %s \n",title,value,cod,advertiser.getName());
+		return String.format("Título do Anúncio -> %s \nPreço             -> R$ %s \nCódigo            -> %s \nAnunciante        -> %s \n",title,mascara(String.format("%.2f", value * 1.00),"dinheiro"),cod,advertiser.getName());
 	}
 
 }

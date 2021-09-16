@@ -1,7 +1,8 @@
 public class ScreenAdministrator extends Screen{
 	ScreenMain telaPrincipal;
 	private int pageFretes;
-
+	private int pageCompras;
+	
 	public ScreenAdministrator(ScreenMain telaPrincipal) {
 		super();
 		this.telaPrincipal = telaPrincipal;
@@ -28,7 +29,7 @@ public class ScreenAdministrator extends Screen{
 				System.out.println("###################################\n");
 				telaAdm();
 			}
-			else menuListagem(1);
+			else menuListagem(1,"fretes");
 		}
 		else if(option == 3) {
 			if(telaPrincipal.vendas.size() == 0) {
@@ -47,6 +48,17 @@ public class ScreenAdministrator extends Screen{
 		System.out.println("(2) Ver total de taxa sobre vendas");
 		System.out.println("(3) Voltar para a Área do ADM\n");
 		
+		int[] options = new int[]{1,2,3} ;
+
+		int option = takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options,telaPrincipal.input);
+
+		telaPrincipal.input.nextLine();
+
+		System.out.println("\n###################################\n");
+		
+		if(option == 1)menuListagem(1,"compras");
+		else if(option == 2)relatorioTaxa();
+		else if(option == 3)telaAdm();
 	}
 	
 	// Método responsável por solicitar ao usuário as informações necessárias para criar um novo Frete
@@ -78,18 +90,19 @@ public class ScreenAdministrator extends Screen{
 	}
 
 	// Método responsável por mostrar na tela uma listagem de códigos dos Fretes ou Anúncios cadastrados
-	public void menuListagem(int page) {
+	public void menuListagem(int page,String type) {
 		int contador;
 
-		int atualPage = pageFretes;
+		int atualPage = type == "fretes" ? pageFretes : pageCompras;
 
-		int total = telaPrincipal.fretes.size();
+		int total = type == "fretes" ? telaPrincipal.fretes.size() : telaPrincipal.vendas.size();
 
 		int totalPages = (int) Math.ceil((float)total/telaPrincipal.itensPorPagina);
 
 		atualPage = page < 1 ? 1 : (page > totalPages ? totalPages : page);
 
-		pageFretes = atualPage;
+		if(type == "fretes")pageFretes = atualPage;
+		else pageCompras = atualPage;
 
 		int limitFor = atualPage == totalPages ? (total - (totalPages - 1)*telaPrincipal.itensPorPagina) : telaPrincipal.itensPorPagina;
 
@@ -99,16 +112,25 @@ public class ScreenAdministrator extends Screen{
 
 		int optionVolt = -1;
 
-		System.out.println("*** Lista de Fretes ***\n");
+		System.out.printf("*** Lista de %s ***\n\n",type == "fretes" ? "Fretes" : "Compras");
 
 		System.out.printf("Página atual     -> %d\n",atualPage);
-		System.out.printf("Total de Páginas -> %d\n\n",totalPages);
-
+		System.out.printf("Total de Páginas -> %d\n",totalPages);
+		
+		if(type == "fretes")System.out.printf("Total de Fretes  -> %d\n\n",total);
+		else System.out.printf("Total de Compras -> %d\n\n",total);
+		
 		for(contador = 0 ; contador < limitFor ; contador++) {
 			int posicaoItem = contador + ((atualPage - 1)*telaPrincipal.itensPorPagina);
-			String codigo = telaPrincipal.fretes.get(posicaoItem).getCod();
-			String company = telaPrincipal.fretes.get(posicaoItem).getCompany();
-			System.out.printf("(%d) %s - %s\n",contador+1,company,codigo);
+			if(type == "fretes") {
+				String codigo = telaPrincipal.fretes.get(posicaoItem).getCod();
+				String company = telaPrincipal.fretes.get(posicaoItem).getCompany();
+				System.out.printf("(%d) %s - %s\n",contador+1,company,codigo);
+			}
+			else {
+				Shopping compra = telaPrincipal.vendas.get(posicaoItem);
+				System.out.printf("(%d) Produto: %s - Quantidade: %s\n",contador + 1,compra.getProductName(),compra.getQuantity());
+			}
 		}
 
 		if(atualPage == totalPages && totalPages > 1) {
@@ -126,7 +148,7 @@ public class ScreenAdministrator extends Screen{
 			optionProx = contador;
 		}
 
-		System.out.printf("(%d) Voltar para Área do ADM\n\n",++contador);
+		System.out.printf("(%d) Voltar para %s\n\n",++contador,type == "fretes" ? "Área do ADM" : "Relatórios");
 
 		optionVolt = contador;
 
@@ -140,13 +162,22 @@ public class ScreenAdministrator extends Screen{
 
 		System.out.println("\n###################################\n");
 
-		if(option == optionProx)menuListagem(atualPage + 1);
-		else if(option == optionAnt)menuListagem(atualPage - 1);
-		else if(option == optionVolt)telaAdm();
+		if(option == optionProx)menuListagem(atualPage + 1,type);
+		else if(option == optionAnt)menuListagem(atualPage - 1,type);
+		else if(option == optionVolt) {
+			if(type == "fretes")telaAdm();
+			else menuRelatorios();
+		}
 		else if(option <= limitFor && option >= 1) {
 			int posItem = (option - 1) + ((atualPage - 1)*telaPrincipal.itensPorPagina);
-			Shipping itemFrete = telaPrincipal.fretes.get(posItem);
-			detalharFrete(itemFrete);
+			if(type == "fretes") {
+				Shipping itemFrete = telaPrincipal.fretes.get(posItem);
+				detalharFrete(itemFrete);
+			}
+			else {
+				Shopping itemCompra = telaPrincipal.vendas.get(posItem);
+				detalharCompra(itemCompra);
+			}
 		}
 	}
 
@@ -195,7 +226,7 @@ public class ScreenAdministrator extends Screen{
 
 		System.out.println("\n###################################\n");
 
-		if(goBack)menuListagem(pageFretes);
+		if(goBack)menuListagem(pageFretes,"fretes");
 		else if(delete)telaAdm();
 		else detalharFrete(item);
 	}
@@ -206,5 +237,33 @@ public class ScreenAdministrator extends Screen{
 			if(telaPrincipal.fretes.get(i).getCod().compareTo(cod) == 0)return i;
 		}
 		return -1;
+	}
+	
+	public void detalharCompra(Shopping item) {
+		System.out.println("*** Detalhes da Compra ***\n");
+		System.out.println(item);
+		System.out.println("\n(1) Voltar para Listagem de Compras\n");
+
+		int options[] = {1};
+
+		takeIntInPrompt("Digite a opção desejada -> ","Opção não existente!\n",options,telaPrincipal.input);
+
+		System.out.println("\n###################################\n");
+
+		menuListagem(pageCompras,"compras");
+	}
+
+	public void relatorioTaxa() {
+		double valorTotal = 0;
+		double taxaTotal = 0;
+		for(int i = 0; i < telaPrincipal.vendas.size();i++)valorTotal += telaPrincipal.vendas.get(i).valorTotal();
+		
+		taxaTotal = valorTotal * 0.05;
+		
+		System.out.printf("Valor total de vendas -> R$ %s\n",mascara(String.format("%.2f",valorTotal),"dinheiro"));
+		System.out.printf("Valor total de taxas  -> R$ %s\n",mascara(String.format("%.2f",taxaTotal),"dinheiro"));
+		System.out.println("\n###################################\n");
+		
+		menuRelatorios();
 	}
 }

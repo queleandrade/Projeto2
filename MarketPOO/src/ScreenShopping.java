@@ -130,7 +130,8 @@ public class ScreenShopping extends Screen{
 		System.out.printf("*** %s ***\n\n",type == "compras" ? "Minhas Compras" : "Minhas Vendas");
 		System.out.printf("Página atual      -> %d\n",atualPage);
 		System.out.printf("Total de Páginas  -> %d\n",totalPages);
-		System.out.printf("Total de Compras  -> %d\n\n",total);
+		if(type == "compras")System.out.printf("Total de Compras  -> %d\n\n",total);
+		else System.out.printf("Total de Vendas   -> %d\n\n",total);
 		
 		for(contador = 0 ; contador < limitFor ; contador++) {
 			int posicaoItem = contador + ((atualPage - 1)*telaCliente.telaPrincipal.itensPorPagina);
@@ -178,7 +179,7 @@ public class ScreenShopping extends Screen{
 			}
 			else {
 				Shopping itemVenda = telaCliente.telaPrincipal.usuarioAtual.getMySales().get(posItem);
-				detalharCompra(itemVenda);
+				detalharVenda(itemVenda);
 			}
 			
 		}
@@ -187,7 +188,7 @@ public class ScreenShopping extends Screen{
 	public void detalharCompra(Shopping item) {
 		System.out.println("*** Detalhes da Compra ***\n");
 		System.out.println(item);
-		System.out.println("(1) Voltar para a Listagem de Anúncios\n");
+		System.out.println("\n(1) Voltar para Minhas Compras\n");
 
 		int options[] = {1};
 
@@ -201,7 +202,7 @@ public class ScreenShopping extends Screen{
 	public void detalharVenda(Shopping item) {
 		System.out.println("*** Detalhes da Venda ***\n");
 		System.out.println(item);
-		System.out.println("(1) Voltar para a Listagem de Anúncios\n");
+		System.out.println("\n(1) Voltar para Minhas Vendas\n");
 
 		int options[] = {1};
 

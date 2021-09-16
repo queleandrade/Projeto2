@@ -5,7 +5,7 @@ public class Shopping {
 	private User salesman;
 	private Shipping shipping;
 	private int quantity;
-	
+
 	public Shopping(Announcement product, User buyer, User salesman, Shipping shipping, int quantity) {
 		this.product = product;
 		this.buyer = buyer;
@@ -22,7 +22,7 @@ public class Shopping {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	public Announcement getProduct() {
 		return product;
 	}
@@ -54,7 +54,32 @@ public class Shopping {
 	public void setShipping(Shipping shipping) {
 		this.shipping = shipping;
 	}
-	
+
+	public double valorTotal() {
+		return product.getValue()*quantity;
+	}
+
+	// Método responsável por formatar os atributos 'valor' e 'quilometragem'
+	public String mascara(String string,String tipo) {
+
+		String valorDecimal = tipo == "dinheiro" ? string.split(",")[1] : "";
+		char[] valorInteiro = string.split(",")[0].toCharArray();
+		int contador = 1;
+		String novoValorInteiro = "";
+
+		for( int i = valorInteiro.length - 1 ; i >= 0 ; i-- ) {
+			if( ( contador % 4 ) == 0 ) novoValorInteiro += "." + valorInteiro[i];
+			else novoValorInteiro += valorInteiro[i];
+			contador++;
+		}
+
+		string = "";
+
+		for( int i = novoValorInteiro.toCharArray().length - 1 ; i >= 0 ; i-- )string += novoValorInteiro.toCharArray()[i];
+
+		return tipo == "dinheiro" ? string += "," + valorDecimal : string;
+	}
+
 	public String getProductName() {
 		String produtoNome = "NENHUM";
 		if(product instanceof AnnouncementBook) produtoNome = ((AnnouncementBook) product).getBookName();
@@ -63,9 +88,9 @@ public class Shopping {
 		else if(product instanceof AnnouncementBookCollection) produtoNome = ((AnnouncementBookCollection) product).getBookCollectionName();
 		return produtoNome;
 	}
-	
+
 	public String toString() {
-		return String.format("Produto       -> %s \nComprador     -> %s \nVendedor      -> %s \nTipo de Frete -> %s \nQuantidade    -> %d", getProductName(),buyer.getName() + " " + buyer.getSurname(),salesman.getName() + " " + salesman.getSurname(),shipping.getCompany(),quantity);
+		return String.format("Produto       -> %s \nComprador     -> %s \nVendedor      -> %s \nTipo de Frete -> %s \nQuantidade    -> %d \nValor Total   -> R$ %s", getProductName(),buyer.getName() + " " + buyer.getSurname(),salesman.getName() + " " + salesman.getSurname(),shipping.getCompany(),quantity,mascara(String.format("%.2f", valorTotal()),"dinheiro"));
 	}
 
 }

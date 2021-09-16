@@ -48,8 +48,9 @@ public class ScreenShipping extends Screen{
 		System.out.println("*** Lista de Fretes ***\n");
 
 		System.out.printf("Página atual     -> %d\n",atualPage);
-		System.out.printf("Total de Páginas -> %d\n\n",totalPages);
-
+		System.out.printf("Total de Páginas -> %d\n",totalPages);
+		System.out.printf("Total de Fretes  -> %d\n\n",total);
+		
 		for(contador = 0 ; contador < limitFor ; contador++) {
 			int posicaoItem = contador + ((atualPage - 1)*telaPrincipal.itensPorPagina);
 			String codigo = telaPrincipal.fretes.get(posicaoItem).getCod();
