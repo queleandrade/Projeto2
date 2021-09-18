@@ -2,17 +2,10 @@
 
 public class Principal {
 	public static void main(String[] args) {
-		TesteDeSistema teste = new TesteDeSistema();
+		
 		ScreenMain tela = new ScreenMain();
 		User usuarioAdm = new User("Mateus","Brasil","07893080531","teu@gmail.com","Amargosa","123456","Admnistrador");
 		User usuarioComum = new User("Lucas","Alencar","07893080531","lucas@gmail.com","Amargosa","123456","Comum");
-		//System.out.println("-> Início dos Testes\n");
-
-		//teste.testeNovoAnuncio(tela);
-		//teste.testeNovoFrete(tela);
-
-		//System.out.println("Fim dos Testes");
-		//System.out.println("\n###################################\n");
 		
 		tela.usuarios.add(usuarioAdm);
 		tela.usuarios.add(usuarioComum);

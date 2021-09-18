@@ -119,7 +119,21 @@ public class ScreenMain extends Screen {
 		System.out.println("*** Cadastro ***\n");
 		String name = requestString("Digite seu nome -> ", "Erro no seu nome!\n", input);
 		String surname = requestString("Digite seu sobrenome -> ", "Erro no seu sobrenome!\n", input);
-		String cpf = requestString("Digite seu CPF -> ", "Erro no seu CPF!\n", input);
+		
+		boolean flagCpfValido =  true;
+		String cpf = "";
+		
+		while(flagCpfValido) {
+			cpf = requestString("Digite seu CPF -> ", "Erro no seu CPF!\n", input);
+			try {
+				InfosException.validarCPF(cpf);
+				flagCpfValido = false;
+			}catch(Exception e) {
+				flagCpfValido = true;
+				System.out.println("\nErro -> Erro no seu CPF\n");
+			}
+		}
+		
 		String email = requestString("Digite seu email -> ", "Erro no seu email!\n", input);
 		String city = requestString("Digite sua cidade -> ", "Erro na sua cidade!\n", input);
 		String password = requestString("Digite sua senha -> ", "Erro na sua senha!\n", input);
