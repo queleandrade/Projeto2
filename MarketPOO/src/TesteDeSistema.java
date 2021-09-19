@@ -50,6 +50,36 @@ public class TesteDeSistema {
 		System.out.println("#######################################\n");
 		System.out.println("8 - Testes de Ver taxas\n");
 		testeCalcularTaxas();
+		
+		System.out.println("#######################################\n");
+		System.out.println("9 - Testes de Edição de Fretes\n");
+		Shipping itemFrete = fretes.get(0);
+		testeEditaFrete(itemFrete,"Correios Plus");
+		System.out.println("Exibindo detalhes após a edição do nome do primeiro frete\n");
+		System.out.println(fretes.get(0));
+		System.out.println("---------------------------------------\n");
+		
+		System.out.println("#######################################\n");
+		System.out.println("10 - Testes de Edição de Anúncios\n");
+		Announcement itemAnuncio = anuncios.get(0);
+		testeEditaFrete(itemAnuncio,"Coleção de Lewis");
+		System.out.println("Exibindo detalhes após a edição do título do primeiro anúncio\n");
+		System.out.println(anuncios.get(0));
+		System.out.println("---------------------------------------\n");
+		
+		System.out.println("#######################################\n");
+		System.out.println("11 - Testes de Exclusão de Fretes\n");
+		testeExcluiFrete(0);
+		System.out.println("Exibindo a lista após a exclusão do primeiro frete\n");
+		testeListarFretes();
+		
+		
+		System.out.println("#######################################\n");
+		System.out.println("12 - Testes de Exclusão de Anúncios\n");
+		testeExcluiAnuncio(0);
+		System.out.println("Exibindo a lista após a exclusão do primeiro anúncio\n");
+		testeListarAnuncios();
+				
 
 	}
 
@@ -70,7 +100,21 @@ public class TesteDeSistema {
 		System.out.println(freteTeste);
 		System.out.println("---------------------------------------\n");
 	}
-
+	// Método responsável por editar o nome de um frete
+	public static void testeEditaFrete(Shipping item, String newCompany) {
+		item.setCompany(newCompany);
+	}
+	// Método responsável por editar otitúlo de um anúncio
+	public static void testeEditaFrete(Announcement item, String newTitle) {
+		item.setTitle(newTitle);
+	}
+	
+	public static void testeExcluiFrete(int pos) {
+		fretes.remove(pos);
+	}
+	public static void testeExcluiAnuncio(int pos) {
+		anuncios.remove(pos);
+	}
 	public static void testeListarAnuncios() {
 		for(int i = 0 ; i < anuncios.size(); i++) {
 			System.out.println(anuncios.get(i));
@@ -138,7 +182,7 @@ public class TesteDeSistema {
 
 		System.out.printf("Valor total de vendas -> R$ %s\n",mascara(String.format("%.2f",valorTotal),"dinheiro"));
 		System.out.printf("Valor total de taxas  -> R$ %s\n",mascara(String.format("%.2f",taxaTotal),"dinheiro"));
-		System.out.println("\n###################################\n");
+	
 
 	}
 
