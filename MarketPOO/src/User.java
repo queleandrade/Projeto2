@@ -4,6 +4,7 @@ import java.util.Random;
 //classe do usuário que contém seus atributos como nome, sobrenome, cpf, e-mail, cidade, senha e o tipo de usuário.
 
 public class User {
+	//varaivéis de instâncias
 	private String id;
 	private String name;
 	private String surname;
@@ -31,17 +32,22 @@ public class User {
 		this.myAnnouncement = new ArrayList<Announcement>();
 	}
 	
+	//Método para adicionar anúncio
 	public void addAnnouncement(Announcement item) {
 		myAnnouncement.add(item);
 	}
 	
+	//Método para adicionar compras
 	public void addShopping(Shopping item) {
 		myShopping.add(item);
 	}
 	
+	//Método para adicioanr vendas
 	public void addSales(Shopping item) {
 		mySales.add(item);
 	}
+	
+	//método settters e getters
 	
 	public String getId() {
 		return id;
@@ -51,7 +57,6 @@ public class User {
 		this.id = id;
 	}
 
-	//método settters e getters
 	public String getName() {
 		return name;
 	}
@@ -128,6 +133,7 @@ public class User {
 				"\n" + "Tipo do usuário: " + getType();
 	}
 	
+	//Método para gerar o código
 	private String GenerateId() {
 		String cod = "";
 		Random random = new Random();

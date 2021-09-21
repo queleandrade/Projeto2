@@ -1,9 +1,12 @@
+//subclasse da classe Screen para tela de envio,isto é, o frete de cada produto
 public class ScreenShipping extends Screen{
+	//variavéis de instância
 	ScreenMain telaPrincipal;
 	private int pageFretes;
 
+	//construtor
 	public ScreenShipping(ScreenMain telaPrincipal) {
-		super();
+		super(); //referenciando a classe pai
 		this.telaPrincipal = telaPrincipal;
 		this.pageFretes = 1;
 	}

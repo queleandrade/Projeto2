@@ -1,16 +1,20 @@
+//Subclasse da classe Screen para tela de cliente
 import java.util.ArrayList;
 
 public class ScreenClient extends Screen{
+	//variavéis de instância
 	ScreenMain telaPrincipal;
 	private ScreenShopping telaCompras = new ScreenShopping(this);
 	private int pageMeusAnuncios;
 
+	//Construtor
 	public ScreenClient(ScreenMain telaPrincipal) {
-		super();
+		super(); //referenciando a classe pai
 		this.telaPrincipal = telaPrincipal;
 		this.pageMeusAnuncios = 1;
 	}
 
+	//Método que mostra as opções de menu para o usuário
 	public void telaCliente() {
 		System.out.println("*** Área do Cliente ***\n");
 		System.out.println("(1) Comprar");
@@ -502,6 +506,7 @@ public class ScreenClient extends Screen{
 		return -1;
 	}
 
+	//Método para remover anúncio
 	public void removerAnuncio(String cod) {
 		int pos = findAnuncioById(cod,telaPrincipal.anuncios);
 		telaPrincipal.anuncios.remove(pos);

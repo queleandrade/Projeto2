@@ -5,11 +5,13 @@ import java.util.Scanner;
 
 public class ScreenMain extends Screen {
 
+	//cria os objetos protegidos de cada classe referente as telas
 	protected ScreenShipping telaFretes = new ScreenShipping(this);
 	protected ScreenAnnouncement telaAnuncios = new ScreenAnnouncement(this);
 	protected ScreenAdministrator telaAdm = new ScreenAdministrator(this);
 	protected ScreenClient telaCliente = new ScreenClient(this);
 
+	//cria os array list das classes anuncios, fretes, usuarios e vendas
 	protected ArrayList<Announcement> anuncios = new ArrayList<Announcement>();
 	protected ArrayList<Shipping> fretes = new ArrayList<Shipping>();
 	protected ArrayList<User> usuarios = new ArrayList<User>();
@@ -98,6 +100,7 @@ public class ScreenMain extends Screen {
 
 	}
 
+	//Método responsavél pelo logindo usuário
 	public void logar() {
 		System.out.println("*** Login ***\n");
 		String email = requestString("Digite seu email -> ", "Erro no seu email!\n", input);
@@ -115,6 +118,7 @@ public class ScreenMain extends Screen {
 		menuPrincipal();
 	}
 
+	//Método responsavél pelo cadastro do usuário
 	public void cadastrar() {
 		System.out.println("*** Cadastro ***\n");
 		String name = requestString("Digite seu nome -> ", "Erro no seu nome!\n", input);

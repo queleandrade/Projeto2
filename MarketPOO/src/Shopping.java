@@ -1,11 +1,14 @@
+//Classe de adquirir os produtos
 
 public class Shopping {
+	//Varaivéis de instâncias
 	private Announcement product;
 	private User buyer;
 	private User salesman;
 	private Shipping shipping;
 	private int quantity;
 
+	//Construtor
 	public Shopping(Announcement product, User buyer, User salesman, Shipping shipping, int quantity) {
 		this.product = product;
 		this.buyer = buyer;
@@ -80,6 +83,7 @@ public class Shopping {
 		return tipo == "dinheiro" ? string += "," + valorDecimal : string;
 	}
 
+	//Método get para o nome do produto para adicionar cada um em suas respctivas classes
 	public String getProductName() {
 		String produtoNome = "NENHUM";
 		if(product instanceof AnnouncementBook) produtoNome = ((AnnouncementBook) product).getBookName();
@@ -89,6 +93,7 @@ public class Shopping {
 		return produtoNome;
 	}
 
+	//Método para exibir os dados para o usuário
 	public String toString() {
 		return String.format("Produto       -> %s \nComprador     -> %s \nVendedor      -> %s \nTipo de Frete -> %s \nQuantidade    -> %d \nValor Total   -> R$ %s", getProductName(),buyer.getName() + " " + buyer.getSurname(),salesman.getName() + " " + salesman.getSurname(),shipping.getCompany(),quantity,mascara(String.format("%.2f", valorTotal()),"dinheiro"));
 	}

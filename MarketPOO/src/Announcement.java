@@ -1,13 +1,23 @@
 // SuperClasse de Anúncio contendo atríbutos comuns a todos os anúncios
-
-import java.util.Random;
+//Importando a classe java.util.Random, que vai ser utilizada para gerar o código de cada produto referente ao anúncio
+import java.util.Random; 
 
 public class Announcement {
-	private String cod;
+	//variavéis de instâncias
+	private String cod; 
 	private String title;
 	private double value;
 	private User advertiser;
 
+	//Construtor
+	public Announcement(String title, double value, User advertiser) {
+		this.cod = GenerateId(); //o método chama o id
+		this.title = title;
+		this.value = value;
+		this.advertiser = advertiser;
+	}
+
+	//Métodos getters e setters
 	public User getAdvertiser() {
 		return advertiser;
 	}
@@ -15,14 +25,7 @@ public class Announcement {
 	public void setAdvertiser(User advertiser) {
 		this.advertiser = advertiser;
 	}
-
-	public Announcement(String title, double value, User advertiser) {
-		this.cod = GenerateId();
-		this.title = title;
-		this.value = value;
-		this.advertiser = advertiser;
-	}
-
+	
 	public String getCod() {
 		return cod;
 	}
@@ -69,18 +72,22 @@ public class Announcement {
 	}
 
 
+	//Método para gerar o id de forma aleatória
 	public String GenerateId() {
 		String cod = "";
-		Random random = new Random();
-		int length = 10;
+		Random random = new Random(); //criando o objeto do tipo Random
+		int length = 10; //id com 10 caracteres
 
+		//criando um array de caracteres com as letras do alfabeto e com números de 0 à 9
 		char[] characters = {'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','0','1','2','3','4','5','6','7','8','9'};
 
+		//um laço de repetição para que seja sorteado 10 caracteres
 		for(int i = 0; i < length ; i++)cod += characters[random.nextInt(characters.length)];
 
 		return cod;
 	}
 
+	//Métodso toString para mostrar os dados para o usuário
 	public String toString() {
 		return String.format("Título do Anúncio -> %s \nPreço             -> R$ %s \nCódigo            -> %s \nAnunciante        -> %s \n",title,mascara(String.format("%.2f", value * 1.00),"dinheiro"),cod,advertiser.getName());
 	}

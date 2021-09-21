@@ -1,9 +1,13 @@
+//Subclasse da classe screen para tela de exibir anúncios
+
 public class ScreenAnnouncement extends Screen{
+	//Variavéis de instâncias
 	ScreenMain telaPrincipal;
 	private int pageAnuncios;
 	
+	//construtor
 	public ScreenAnnouncement(ScreenMain telaPrincipal) {
-		super();
+		super(); ////referenciando a classe pai
 		this.telaPrincipal = telaPrincipal;
 		this.pageAnuncios = 1;
 	}
@@ -40,6 +44,7 @@ public class ScreenAnnouncement extends Screen{
 			Announcement anuncio = telaPrincipal.anuncios.get(posicaoItem);
 			String codigo = anuncio.getCod();
 			String nome = "";
+			//instanceof testa se é uma instância do tipo especificado, após o nome de cada produto vai para sua classe em especifico
 			if(anuncio instanceof AnnouncementBook) nome = ((AnnouncementBook) anuncio).getBookName();
 			else if(anuncio instanceof AnnouncementMagazine) nome = ((AnnouncementMagazine) anuncio).getMagazineName();
 			else if(anuncio instanceof AnnouncementMagazineSubscription) nome = ((AnnouncementMagazineSubscription) anuncio).getMagazineName();
@@ -86,6 +91,7 @@ public class ScreenAnnouncement extends Screen{
 		}
 	}
 
+	//Método para exibir detalhes do anúncio
 	public void detalharAnuncio(Announcement item) {
 		System.out.println("*** Detalhes do Anúncio ***\n");
 		System.out.println(item);

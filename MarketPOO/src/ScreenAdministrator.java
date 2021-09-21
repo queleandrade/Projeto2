@@ -1,13 +1,18 @@
+//subclasse de Screen para a tela de usuário administrador
+
 public class ScreenAdministrator extends Screen{
+	//variavéis de instância
 	ScreenMain telaPrincipal;
 	private int pageFretes;
 	private int pageCompras;
 	
+	//construtor
 	public ScreenAdministrator(ScreenMain telaPrincipal) {
-		super();
+		super(); //referenciando a classe pai
 		this.telaPrincipal = telaPrincipal;
 	}
 
+	//Método para o menu do administrador
 	public void telaAdm() {
 		System.out.println("*** Área do ADM ***\n");
 		System.out.println("(1) Novo Frete");
@@ -42,6 +47,7 @@ public class ScreenAdministrator extends Screen{
 		else if(option == 4)telaPrincipal.menuPrincipal();
 	}
 
+	//Método para o menu Relatórios de vendas com outras opções
 	public void menuRelatorios() {
 		System.out.println("*** Relatórios ***\n");
 		System.out.println("(1) Ver todas as compras");
@@ -93,11 +99,11 @@ public class ScreenAdministrator extends Screen{
 	public void menuListagem(int page,String type) {
 		int contador;
 
-		int atualPage = type == "fretes" ? pageFretes : pageCompras;
+		int atualPage = type == "fretes" ? pageFretes : pageCompras; //indo para página frete ou vendas
 
-		int total = type == "fretes" ? telaPrincipal.fretes.size() : telaPrincipal.vendas.size();
+		int total = type == "fretes" ? telaPrincipal.fretes.size() : telaPrincipal.vendas.size(); //pegando o número de de fretes ou vendas
 
-		int totalPages = (int) Math.ceil((float)total/telaPrincipal.itensPorPagina);
+		int totalPages = (int) Math.ceil((float)total/telaPrincipal.itensPorPagina); //math.ceil -> pega o inteiro mais próximo
 
 		atualPage = page < 1 ? 1 : (page > totalPages ? totalPages : page);
 
@@ -239,6 +245,7 @@ public class ScreenAdministrator extends Screen{
 		return -1;
 	}
 	
+	//Método para mostrar detahes da compra
 	public void detalharCompra(Shopping item) {
 		System.out.println("*** Detalhes da Compra ***\n");
 		System.out.println(item);
@@ -253,12 +260,13 @@ public class ScreenAdministrator extends Screen{
 		menuListagem(pageCompras,"compras");
 	}
 
+	//Método que gera o valor total das vendas e o de taxas em reais
 	public void relatorioTaxa() {
 		double valorTotal = 0;
 		double taxaTotal = 0;
 		for(int i = 0; i < telaPrincipal.vendas.size();i++)valorTotal += telaPrincipal.vendas.get(i).valorTotal();
 		
-		taxaTotal = valorTotal * 0.05;
+		taxaTotal = valorTotal * 0.05; //taxa em cima do valor total
 		
 		System.out.printf("Valor total de vendas -> R$ %s\n",mascara(String.format("%.2f",valorTotal),"dinheiro"));
 		System.out.printf("Valor total de taxas  -> R$ %s\n",mascara(String.format("%.2f",taxaTotal),"dinheiro"));

@@ -3,12 +3,14 @@
 import java.util.Random;
 
 public class Shipping {
+	//Variavéis de instâncias
 	private String cod;
 	private String company;
 	private String termMax;
 	private double valueMin;
 	private double cost;
 	
+	//Construtor
 	public Shipping(String company, String termMax, double valueMin, double cost) {
 		this.cod = GenerateCod();
 		this.company = company;
@@ -30,6 +32,7 @@ public class Shipping {
 		return cod;
 	}
 	
+	//Método getters e setters
 	public String getCod() {
 		return cod;
 	}
@@ -70,6 +73,7 @@ public class Shipping {
 		this.cost = cost;
 	}
 
+	//Método para exibir os dados para o usuário
 	public String toString() {
 		return String.format("Código         -> %s \nEmpresa        -> %s \nPrazo máximo   -> %s \nValor mínimo   -> R$ %.2f \nCusto do frete -> R$ %.2f\nTipo           -> Frete\n",cod,company,termMax,valueMin,cost);
 	}

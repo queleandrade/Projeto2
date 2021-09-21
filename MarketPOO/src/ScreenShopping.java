@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 
+//Subclasse de Screen para a tela de compras
+
 public class ScreenShopping extends Screen{
+	//variavéis de instâncias
 	ScreenClient telaCliente;
 	int pageMinhasCompras;
 	int pageMinhasVendas;
 	
+	//Construtor
 	public ScreenShopping(ScreenClient telaCliente) {
-		super();
+		super(); //referenciando a classde pai
 		this.telaCliente = telaCliente;
 	}
 	
+	
+	//Método que mostra os menus para comprar
 	public void telaComprar(Announcement produto,Shipping frete,int qntProd) {
 		System.out.println("*** Tela de Compra ***\n");
 		
@@ -90,6 +96,7 @@ public class ScreenShopping extends Screen{
 		}
 	}
 	
+	//Método para adiconar vendas
 	public void addSale(Announcement produto,Shipping frete,int qntProd) {
 		User vendedor = produto.getAdvertiser();
 		User comprador = telaCliente.telaPrincipal.usuarioAtual;
@@ -99,6 +106,7 @@ public class ScreenShopping extends Screen{
 		telaCliente.telaPrincipal.vendas.add(novaCompra);
 	}
 	
+	// Método responsável por mostrar na tela uma listagem de compras
 	public void menuListagem(int page,String type) {
 		User usuario = telaCliente.telaPrincipal.usuarioAtual;
 		
@@ -185,6 +193,7 @@ public class ScreenShopping extends Screen{
 		}
 	}
 	
+	//Método para mostrar os detalhes da compra do usuário
 	public void detalharCompra(Shopping item) {
 		System.out.println("*** Detalhes da Compra ***\n");
 		System.out.println(item);
@@ -199,6 +208,7 @@ public class ScreenShopping extends Screen{
 		menuListagem(pageMinhasCompras,"compras");
 	}
 	
+	//Método para detalhar as vvendas do usuário
 	public void detalharVenda(Shopping item) {
 		System.out.println("*** Detalhes da Venda ***\n");
 		System.out.println(item);

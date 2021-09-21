@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class TesteDeSistema {
 
+	//criando os array list
 	static ArrayList<Announcement> anuncios = new ArrayList<Announcement>();
 	static ArrayList<Shipping> fretes = new ArrayList<Shipping>();
 	static ArrayList<User> usuarios = new ArrayList<User>();
@@ -79,8 +80,6 @@ public class TesteDeSistema {
 		testeExcluiAnuncio(0);
 		System.out.println("Exibindo a lista após a exclusão do primeiro anúncio\n");
 		testeListarAnuncios();
-				
-
 	}
 
 	// Método responsável por testar a criação de um novo Anúncio
@@ -109,12 +108,17 @@ public class TesteDeSistema {
 		item.setTitle(newTitle);
 	}
 	
+	//Método para excluir frete
 	public static void testeExcluiFrete(int pos) {
 		fretes.remove(pos);
 	}
+	
+	//Método para excluir anúncio
 	public static void testeExcluiAnuncio(int pos) {
 		anuncios.remove(pos);
 	}
+	
+	//Método para listar todos os anúncios
 	public static void testeListarAnuncios() {
 		for(int i = 0 ; i < anuncios.size(); i++) {
 			System.out.println(anuncios.get(i));
@@ -122,6 +126,7 @@ public class TesteDeSistema {
 		}
 	}
 
+	//Método para criar um novo usuário
 	public static void testarNovoUsuario(String name,String surname,String cpf,String email,String city,String password,String type) {
 		System.out.println("*** Criando um Usuário ***");
 		User usuario = new User(name, surname, cpf, email, city, password, type);
@@ -130,6 +135,7 @@ public class TesteDeSistema {
 		System.out.println("\n---------------------------------------\n");
 	}
 
+	//Método para listar os fretes
 	public static void testeListarFretes() {
 		for(int i = 0 ; i < fretes.size(); i++) {
 			System.out.println(fretes.get(i));
@@ -137,6 +143,7 @@ public class TesteDeSistema {
 		}
 	}
 
+	//Método para comprar
 	public static void testeComprar(Announcement product,User buyer,User salesman,Shipping shipping,int quantity) {
 		System.out.println("*** Realizando uma Compra ***\n");
 		Shopping compra = new Shopping(product, buyer, salesman, shipping, quantity);
@@ -145,6 +152,7 @@ public class TesteDeSistema {
 		System.out.println("\n---------------------------------------\n");
 	}
 
+	//Método para listar as vendas
 	public static void testeListarVendas() {
 		for(int i = 0 ; i < vendas.size(); i++) {
 			System.out.println(vendas.get(i));
@@ -173,6 +181,7 @@ public class TesteDeSistema {
 		return tipo == "dinheiro" ? string += "," + valorDecimal : string;
 	}
 
+	//Método responsavél para listar as taxas
 	public static void testeCalcularTaxas() {
 		double valorTotal = 0;
 		double taxaTotal = 0;
